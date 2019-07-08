@@ -1,0 +1,44 @@
+<div class="bbt">
+    <button class="btn btn-lg btn-white" [class.active]="filterBy==='All'" (click)="filterBy='All'">All</button>
+    <button class="btn btn-lg btn-white" [class.active]="filterBy==='Open'" (click)="filterBy='Open'">Open</button>
+    <button class="btn btn-lg btn-white" [class.active]="filterBy==='Closed'" (click)="filterBy='Closed'">Closed</button>
+</div>
+<div id="tn">
+    <table id="thumbnailsList" style="width: 100%;">
+        <tr>
+            <th>Day</th>
+            <th>Time</th>
+            <th>Address</th>
+            <th>Provider Purpose</th>
+            <th>Status</th>
+        </tr>
+        <tr *ngFor="let patientt of (PATIENTS | patientFilter: filterBy)" >
+                <td>{{patientt.day}}</td>
+                <td>{{patientt.time}}</td>
+                <td><img src="assets/img/house.png" width="50" height="50"> {{patientt.address}}</td>
+                <td>{{patientt.provider}} , {{patientt.purpose}} </td>
+                <td>{{patientt.status}}</td>
+                <td *ngIf="checkTF(patientt); else notShow"> 
+                    <button class="outcome" (click)="changOption(patientt)">OutCome</button>
+                </td>
+                <ng-template #notShow>
+                    <td>
+                        <p> OutCome:
+                            <select name = "OPP"  [(ngModel)] = "patientt.status">
+                                    <option value="Open">Open</option>
+                                    <option value="Closed" selected>Closed</option>
+                                    <option value="Cancellced">Cancellced</option>
+                                    <option value="Did not Attend">Did not Attend</option>
+                            </select>
+                        </p>                        
+                    </td>
+                    <!-- <td *ngIf="checkOption(OPP,patientt)"> 
+                    <button >Open</button>
+                    </td> -->
+                </ng-template>
+        </tr>
+    </table>
+</div>
+<div >
+
+</div>
